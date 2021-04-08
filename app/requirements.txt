@@ -2,6 +2,7 @@
 Flask
 pydantic
 python-dotenv
+Flask_WTF
 
 #db
 databases[postgresql]==0.4.2
