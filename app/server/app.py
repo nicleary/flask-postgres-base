@@ -5,8 +5,7 @@ import json
 app = Flask(__name__)
 
 @app.route('/')
-def index() -> str:
-    return {"chungus": "no"}
+def index():
+    return {"chungus": "perhaps"}
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+app.run(host='0.0.0.0')

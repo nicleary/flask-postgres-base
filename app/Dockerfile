@@ -5,12 +5,11 @@ EXPOSE 5000
 WORKDIR /app
 
 RUN apt-get update \
-    && apt-get -y install netcat gcc postgresql libpq-dev python-dev \
+    && apt-get -y install netcat gcc postgresql libpq-dev python-dev uvicorn\
     && apt-get clean
 
 COPY requirements.txt /app
 RUN pip install -r requirements.txt
 
 COPY . /app
-CMD python3 migrations.py
-CMD python3 server/app.py
+CMD uvicorn server.app:app --reload --workers 1 --host 0.0.0.0 --port 5000
