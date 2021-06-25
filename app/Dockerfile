@@ -11,5 +11,4 @@ RUN apt-get update \
 COPY requirements.txt /app
 RUN pip install -r requirements.txt
 
-COPY . /app
-CMD uvicorn server.app:app --reload --workers 1 --host 0.0.0.0 --port 5000
+COPY . ./
