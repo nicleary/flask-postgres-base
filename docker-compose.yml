@@ -2,7 +2,7 @@ version: "3.8"
 services:
   app:
     build:
-      context: ./app
+      context: .
       dockerfile: Dockerfile
     volumes:
     - ./app/:/app/
@@ -18,7 +18,7 @@ services:
 
   migrations:
     build:
-      context: ./app
+      context: .
       dockerfile: Dockerfile
     links:
       - db
