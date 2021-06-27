@@ -34,21 +34,21 @@ From this point, you can use this repository to develop as you would normally fo
 
 ## Adding Endpoints
 
-Likely, you'll want to add additional endpoints to the Flask application. By default, this applicaiton includes a single endpoint contained in one blueprint, located in app/server/endpoint.py. All endpoints must be imported and included in app/server/__init__.py.
+Likely, you'll want to add additional endpoints to the Flask application. By default, this applicaiton includes a single endpoint contained in one blueprint, located in app/server/endpoint.py. All endpoints must be imported and included in app/server/\_\_init\_\_.py.
 
-While it is possible to include endpoints in the flask __init__.py file, this is not recommended. It is recommended to take advantage of Flask's built in blueprint system. More information about this blueprint system can be found in Flask's [official documenation](https://flask.palletsprojects.com/en/2.0.x/blueprints/)
+While it is possible to include endpoints in the flask \_\_init\_\_.py file, this is not recommended. It is recommended to take advantage of Flask's built in blueprint system. More information about this blueprint system can be found in Flask's [official documenation](https://flask.palletsprojects.com/en/2.0.x/blueprints/)
 
 ## Handling Secrets
 
-It is always important to not store any secrets in a Github repository, and even more important to not hard code those secrets. For this reason, this repository also includes a basic secret handling function. 
+It is always important to not store any secrets in a Github repository, and even more important to not hard code those secrets. For this reason, this repository also includes a basic secret handling function.
 
-It can pull secrets from either a cred.json file (located at the same location the cred_example.json is located), or from environment variables. An example of it's usage can be found in both app/db/migrations/env.py, and in app/server/__init__.py. In the former, the connection string for the database is pulled from the cred.json file you created in the initial setup. In the later, the SECRET_KEY environment variable is pulled and passed to the program by the cred_handler function. Both of these methods are valid ways to store secrets.
+It can pull secrets from either a cred.json file (located at the same location the cred_example.json is located), or from environment variables. An example of it's usage can be found in both app/db/migrations/env.py, and in app/server/\_\_init\_\_.py. In the former, the connection string for the database is pulled from the cred.json file you created in the initial setup. In the later, the SECRET_KEY environment variable is pulled and passed to the program by the cred_handler function. Both of these methods are valid ways to store secrets.
 
 When a secret is pulled the first time, it will be cached in memory for a faster response in subsequent requests.
 
 ## Logging
 
-Like any good framework, Flask includes logging, specifically uses Python's built in logging. An example of using logging is present in both app/server/__init__.py, and in app/server/endpoint.py. In app/server/__init__.py, the log level of the application is set to be info, however this can be changed easily.
+Like any good framework, Flask includes logging, specifically uses Python's built in logging. An example of using logging is present in both app/server/\_\_init\_\_.py, and in app/server/endpoint.py. In app/server/\_\_init\_\_.py, the log level of the application is set to be info, however this can be changed easily.
 
 ## Making Migrations
 
