@@ -1,8 +1,6 @@
 #app
 flask
 pydantic
-python-dotenv
-Flask_WTF
 gunicorn
 
 #db

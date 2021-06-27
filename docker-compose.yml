@@ -6,8 +6,6 @@ services:
       dockerfile: Dockerfile
     volumes:
     - ./app/:/app/
-    links:
-      - db
     ports:
       - "5000:5000"
     environment:
@@ -21,8 +19,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    links:
-      - db
     command: ['python3', 'migrations.py']
     depends_on:
       - db
