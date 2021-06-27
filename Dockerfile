@@ -5,7 +5,7 @@ EXPOSE 5000
 WORKDIR /app
 
 RUN apt-get update \
-    && apt-get -y install netcat gcc postgresql libpq-dev python-dev uvicorn\
+    && apt-get -y install netcat gcc postgresql libpq-dev python-dev gunicorn\
     && apt-get clean
 
 COPY ./app/requirements.txt /app

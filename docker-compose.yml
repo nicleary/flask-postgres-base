@@ -12,7 +12,7 @@ services:
       - "5000:5000"
     environment:
       - SECRET_KEY=wowsuchsecret
-    command: ['uvicorn', 'server.app:app', '--reload', '--workers', '1', '--host', '0.0.0.0', '--port', '5000']
+    command: ['gunicorn', 'server:create_app()', '-b', '0.0.0.0:5000', '--reload']
     depends_on:
       - db
 

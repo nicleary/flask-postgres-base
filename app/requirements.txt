@@ -1,9 +1,9 @@
 #app
-Flask
+flask
 pydantic
 python-dotenv
 Flask_WTF
-uvicorn
+gunicorn
 
 #db
 databases[postgresql]==0.4.2
