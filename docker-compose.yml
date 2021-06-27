@@ -15,6 +15,7 @@ services:
     command: ['gunicorn', 'server:create_app()', '-b', '0.0.0.0:5000', '--reload']
     depends_on:
       - db
+      - migrations
 
   migrations:
     build:
