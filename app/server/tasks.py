@@ -18,6 +18,11 @@ CELERY = Celery('tasks',
 CELERY.conf.accept_content = ['json', 'msgpack']
 CELERY.conf.result_serializer = 'msgpack'
 
+@CELERY.on_after_configure.connect
+def setup_periodic_tasks(sender, **kwargs):
+    sender.add_periodic_task(10.0, new_task.s('hello'), name='Print hello')
+
+
 def get_job(job_id):
     '''
     The job ID is passed and the celery job is returned.
@@ -32,3 +37,7 @@ def this_is_a_task():
     time.sleep(2)
     number = random.randrange(1,600)
     return a + b * number
+
+@CELERY.task()
+def new_task(arg):
+    print(arg)

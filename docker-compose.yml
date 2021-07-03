@@ -61,5 +61,18 @@ services:
     depends_on: 
       - rabbit
 
+  celery_beat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: celery -A server.tasks beat -l INFO
+    volumes:
+    - ./app/:/app/
+    environment:
+      - RABBITMQ_USER=admin
+      - RABBITMQ_PASS=bigpassword
+    depends_on: 
+      - rabbit
+
 volumes:
   postgres_data:

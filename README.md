@@ -70,7 +70,6 @@ This will generate a new python file under the migrations folder, which you can 
 
 More information on this process can be found on Alembic's [official documenation](https://alembic.sqlalchemy.org/en/latest/tutorial.html#create-a-migration-script)
 
-
 ## Async Task Handling
 
 This project uses a relatively standard celery setup. Tasks are defined in the app/server/tasks.py by default. It is recommended you add tasks in this location.
@@ -82,3 +81,9 @@ Further docs on celery can be found on the [official documentation](https://docs
 ### Scaling Celery Workers
 
 Scaling celery workers is simple with docker-compose. By default, only a single worker is created, but if more are required, simply edit the "scale" attribute of the celery-worker entry in docker-compose.yml
+
+### Periodic Tasks
+
+Also included in this template is a celery-beat container. Celery beat is used to schedule tasks on a reoccuring, regular basis. Under no circumstances should you scale the celery beat container, as this will quickly devolve into madness.
+
+An example scheduled task is included in app/server/tasks.py that is called every 10 seconds. Further documentation can be found at the [official documenation](https://docs.celeryproject.org/en/stable/userguide/periodic-tasks.html)
