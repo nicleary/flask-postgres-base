@@ -2,7 +2,7 @@
 
 ## Overview
 
-A basic repository containing the necessary framework files for a skeleton app using Docker, Flask, and Postgres as a database. Gunicorn is used as the WSGI server, rather than the native Flask development server.
+A basic repository containing the necessary framework files for a skeleton app using Docker, Flask, and Postgres as a database. Gunicorn is used as the WSGI server, rather than the native Flask development server. It also supports asyncronous task management using Celery with a Redis backend and Rabbit MQ broker.
 
 It also includes native support for Alembic to create database migrations. These migrations will automatically be run everytime docker-compose is run, to ensure that the included databaes is kept up to date.
 
@@ -69,3 +69,16 @@ alembic revision -m "Migration name"
 This will generate a new python file under the migrations folder, which you can add upgrade and downgrade syntax using SQL Alchemy syntax.
 
 More information on this process can be found on Alembic's [official documenation](https://alembic.sqlalchemy.org/en/latest/tutorial.html#create-a-migration-script)
+
+
+## Async Task Handling
+
+This project uses a relatively standard celery setup. Tasks are defined in the app/server/tasks.py by default. It is recommended you add tasks in this location.
+
+An example of an async task and it's usage is provided. The root endpoint (located in app/server/endpoint.py) demonstrates how an async task can be handled. Notice how when visiting the page, a response is recieved instantly, but the task is queued by the celery workers and completed 2 seconds later. No matter how many times you reload the page, it still responds instantly, and even as the tasks pile up, the workers will handle it.
+
+Further docs on celery can be found on the [official documentation](https://docs.celeryproject.org/en/stable/index.html)
+
+### Scaling Celery Workers
+
+Scaling celery workers is simple with docker-compose. By default, only a single worker is created, but if more are required, simply edit the "scale" attribute of the celery-worker entry in docker-compose.yml

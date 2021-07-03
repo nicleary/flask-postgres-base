@@ -48,7 +48,7 @@ services:
       - RABBITMQ_DEFAULT_PASS=bigpassword
 
   celery_worker:
-    scale: 5
+    scale: 1
     build:
       context: .
       dockerfile: Dockerfile
