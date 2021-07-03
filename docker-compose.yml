@@ -10,6 +10,8 @@ services:
       - "5000:5000"
     environment:
       - SECRET_KEY=wowsuchsecret
+      - RABBITMQ_USER=admin
+      - RABBITMQ_PASS=bigpassword
     command: ['gunicorn', 'server:create_app()', '-b', '0.0.0.0:5000', '--reload']
     depends_on:
       - db
@@ -35,6 +37,29 @@ services:
       - POSTGRES_DB=postgres
     ports:
     - 5432:5432
+
+  redis:
+    image: redis:latest
+  
+  rabbit:
+    image: rabbitmq:latest
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=bigpassword
+
+  celery_worker:
+    scale: 5
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: celery -A server.tasks worker -l INFO --uid 1
+    volumes:
+    - ./app/:/app/
+    environment:
+      - RABBITMQ_USER=admin
+      - RABBITMQ_PASS=bigpassword
+    depends_on: 
+      - rabbit
 
 volumes:
   postgres_data:

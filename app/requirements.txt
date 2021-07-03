@@ -2,6 +2,8 @@
 flask
 pydantic
 gunicorn
+msgpack-python
+celery[redis]
 
 #db
 databases[postgresql]==0.4.2
