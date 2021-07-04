@@ -4,6 +4,8 @@
 
 A basic repository containing the necessary framework files for a skeleton app using Docker, Flask, and Postgres as a database. Gunicorn is used as the WSGI server, rather than the native Flask development server. It also supports asyncronous task management using Celery with a Redis backend and Rabbit MQ broker.
 
+Nginx is configured as a reverse proxy for the application.
+
 It also includes native support for Alembic to create database migrations. These migrations will automatically be run everytime docker-compose is run, to ensure that the included databaes is kept up to date.
 
 A secret handling function is also included, that can make use of either secrets contained in a cred.json file, or taken from environment variables.
@@ -28,7 +30,7 @@ docker-compose build
 docker-compose up
 ```
 
-Visit localhost:5000 in your browser, and you should see the root page of the application.
+Visit localhost:1337 in your browser, and you should see the root page of the application.
 
 From this point, you can use this repository to develop as you would normally for a Flask applicaiton. Flask specific files are meant to be located in the app/server folder, with database migrations located in the app/db/migrations folder.
 
