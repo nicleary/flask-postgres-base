@@ -17,11 +17,11 @@ services:
       - db
       - migrations
 
-  migrations:
+  initializer:
     build:
       context: .
       dockerfile: Dockerfile
-    command: ['python3', 'migrations.py']
+    command: ['python3', 'initializer.py']
     depends_on:
       - db
 
@@ -40,12 +40,22 @@ services:
 
   redis:
     image: redis:latest
-  
-  rabbit:
-    image: rabbitmq:latest
+
+  flower:
+    image: mher/flower:0.9.5
     environment:
-      - RABBITMQ_DEFAULT_USER=admin
-      - RABBITMQ_DEFAULT_PASS=bigpassword
+      - CELERY_BROKER_URL=amqp://admin:bigpassword@rabbit:5672//
+      - CELERY_BACKEND_URL=redis://redis:6379/0
+      - FLOWER_PORT=5555
+      - FLOWER_PURGE_OFFLINE_WORKERS=10
+    ports:
+      - 5555:5555
+    links:
+      - rabbit
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
 
   celery_worker:
     scale: 1
@@ -65,7 +75,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: celery -A server.tasks beat -l INFO
+    command: celery -A server.tasks beat -l INFO --uid 1
     volumes:
     - ./app/:/app/
     environment:
@@ -76,12 +86,17 @@ services:
 
   nginx:
     build:
-      context: ./app/nginx
+      context: nginx
       dockerfile: Dockerfile.nginx
     ports:
       - 1337:80
     depends_on: 
       - app
+
+  rabbit:
+    build:
+      context: rabbit
+      dockerfile: Dockerfile.rabbit
     
 volumes:
   postgres_data:

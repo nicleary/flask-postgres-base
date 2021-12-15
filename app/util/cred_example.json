@@ -1,3 +1,6 @@
 {
-	"connection_string": "postgresql://postgres:postgres@db:5432/postgres"
+	"connection_string": "postgresql://postgres:postgres@db:5432/postgres",
+	"initial_admin_username": "",
+	"initial_admin_email": "",
+	"hash_salt": ""
 }

@@ -20,7 +20,7 @@ CELERY.conf.result_serializer = 'msgpack'
 
 @CELERY.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
-    sender.add_periodic_task(10.0, new_task.s('hello'), name='Print hello')
+    sender.add_periodic_task(60.0, new_task.s('hello'), name='Print hello')
 
 
 def get_job(job_id):
@@ -41,3 +41,4 @@ def this_is_a_task():
 @CELERY.task()
 def new_task(arg):
     print(arg)
+    return 'lmao'
